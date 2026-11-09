@@ -1,0 +1,6 @@
+[project]
+name = "sigma-geo-eval"
+version = "0.1.0"
+description = "Synthetic benchmark scaffold for geospatial evidence integrity"
+requires-python = ">=3.10"
+dependencies = []
