@@ -1,4 +1,4 @@
-name: Python checks
+name: Python checks and submission package
 
 on:
   push:
@@ -18,3 +18,14 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Run reference pipeline
         run: python run_eval.py --adapter reference
+      - name: Build code-only submission ZIP
+        if: github.event_name == 'push'
+        run: zip -r SIGMA-GEO-submission.zip README.md pyproject.toml run_eval.py sigma_geo tests docs results
+      - name: Upload submission ZIP
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: SIGMA-GEO-submission
+          path: SIGMA-GEO-submission.zip
+          if-no-files-found: error
+          retention-days: 7
